@@ -19,22 +19,31 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 // Login berhasil
                 $_SESSION['role'] = $row['role'];
                 $role = $_SESSION['role'];
-
                 if($role == 1){
+                    // Jika Customer
+
                     $_SESSION['log'] = 'logged';
-
-
                     $_SESSION['id'] = $row['id'];
                     $_SESSION['username'] = $row['username'];
                     $_SESSION['nama'] = $row['nama'];
-                  
-
+                    header("Location: popup.php");
+                }else if($role == 2){
+                    //Jika booster
+                    $_SESSION['log'] = 'logged';
+                    $_SESSION['id'] = $row['id'];
+                    $_SESSION['username'] = $row['username'];
+                    $_SESSION['nama'] = $row['nama'];
+                    header("Location: popup.php");
+                }else{
+                    // Jika Admin
+                    $_SESSION['log'] = 'logged';
+                    $_SESSION['id'] = $row['id'];
+                    $_SESSION['username'] = $row['username'];
+                    $_SESSION['nama'] = $row['nama'];
+                    header("Location: popup.php");
                 }
-
-               
-
-                header("Location: popup.php");
-                exit();
+            }else{
+                echo "<script>alert('Password anda salah'); window.location.href='../tampilan/login.php';</script>";
             }
         }
 
