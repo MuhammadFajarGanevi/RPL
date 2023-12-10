@@ -61,70 +61,63 @@
 <body>
     <?php
     session_start();
-    // Periksa apakah variabel sesi "log" dan "login_status" telah diatur
+
     if (isset($_SESSION['log']) && $_SESSION['log'] == 'logged') {
         $login_status = $_SESSION['log'];
         $username = $_SESSION['username'];
         $role = $_SESSION['role'];
+    
+        echo '
+        <div class="popup-overlay active">
+            <div class="popup-content">
+                <p>' . ($login_status == 'logged' ? 'Selamat datang, ' . $username . '!' : '') . '</p>
+                <button type="button" class="close-btn" onclick="closePopup()">Close</button>
+            </div>
+        </div>
+        ';
+    
+        echo '
+    <script>
+        function closePopup() {
+            document.querySelector(\'.popup-overlay\').classList.remove(\'active\');
+            var role = ' . $role . ';
 
-        // Hapus variabel sesi setelah digunakan
+            if (role == 1) {
+                window.location.href = "../tampilan/user/indexUser.php";
+            } else if (role == 2) {
+                window.location.href = "../tampilan/booster/index.php";
+            } else {
+                window.location.href = "../tampilan/admin/index.php";
+            }
+        }
+    </script>
+    ';
+        // Unset the session variables after displaying the popup
         unset($_SESSION['log']);
         unset($_SESSION['username']);
         unset($_SESSION['role']);
-
-        // Tampilkan pesan pop-up
-        echo '
-    <div class="popup-overlay active">
-        <div class="popup-content">
-            <p>' . ($login_status == 'logged' ? 'Selamat datang, ' . $username . '!' : '') . '</p>
-            <button class="close-btn" onclick="closePopup()">Close</button>
-        </div>
-    </div>
-    ';
-
-        // Tambahkan script JavaScript di sini
-        echo '
-    <script>
-        function closePopup() {
-            document.querySelector(\'.popup-overlay\').classList.remove(\'active\');
-        }
-    </script>
-    ';
-        // Redirect ke menu sesuai dengan peran (role)
-        if ($role == 1) {
-            header('Location: ../tampilan/user/index.php');
-            exit;
-        } elseif ($role == 2) {
-            header('Location: ../tampilan/booster/index.php');
-            exit;
-        } else {
-            header('Location: ../tampilan/admin/index.php');
-            exit;
-        }
     } else {
-        // Tampilkan pesan pop-up login gagal di luar blok sesi
+        // Display the login failed popup
         echo '
-    <div class="popup-overlay active">
-        <div class="popup-content">
-            <h3>Login Gagal</h3>
-            <p>Username atau password salah. Silakan coba lagi.</p>
-            <button class="close-btn" onclick="closePopup()">Close</button>
+        <div class="popup-overlay active">
+            <div class="popup-content">
+                <h3>Login Gagal</h3>
+                <p>Username atau password salah. Silakan coba lagi.</p>
+                <button type="button" class="close-btn" onclick="closePopup()">Close</button>
+            </div>
         </div>
-    </div>
-    ';
-
-        // Tambahkan script JavaScript di sini
+        ';
+    
         echo '
-    <script>
-        function closePopup() {
-            document.querySelector(\'.popup-overlay\').classList.remove(\'active\');
-            window.location.href = "../tampilan/login.html"; 
+        <script>
+            function closePopup() {
+                document.querySelector(\'.popup-overlay\').classList.remove(\'active\');
+                window.location.href = "../tampilan/login.html"; 
+            }
+        </script>
+        ';
         }
-    </script>
-    ';
-    }
     ?>
-
 </body>
 
 </html>

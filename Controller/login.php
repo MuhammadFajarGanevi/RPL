@@ -19,36 +19,33 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 // Login berhasil
                 $_SESSION['role'] = $row['role'];
                 $role = $_SESSION['role'];
-                if($role == 1){
+                if ($role == 1) {
                     // Jika Customer
-
                     $_SESSION['log'] = 'logged';
-                    $_SESSION['id'] = $row['id'];
+                    $_SESSION['id'] = $row['id_account'];
+                    $_SESSION['username'] = $row['username'];
+                    $_SESSION['nama'] = $row['name'];
+                    $id = $_SESSION['id'];
+                    header("Location: popup.php");
+                } else if ($role == 2) {
+                    // Jika booster
+                    $_SESSION['log'] = 'logged';
+                    $_SESSION['id'] = $row['id_account'];
                     $_SESSION['username'] = $row['username'];
                     $_SESSION['nama'] = $row['nama'];
-                    header("Location: popup.php");
-                }else if($role == 2){
-                    //Jika booster
-                    $_SESSION['log'] = 'logged';
-                    $_SESSION['id'] = $row['id'];
-                    $_SESSION['username'] = $row['username'];
-                    $_SESSION['nama'] = $row['nama'];
-                    header("Location: popup.php");
-                }else{
+                } else {
                     // Jika Admin
                     $_SESSION['log'] = 'logged';
-                    $_SESSION['id'] = $row['id'];
+                    $_SESSION['id'] = $row['id_account'];
                     $_SESSION['username'] = $row['username'];
                     $_SESSION['nama'] = $row['nama'];
-                    header("Location: popup.php");
                 }
-            }else{
-                echo "<script>alert('Password anda salah'); window.location.href='../tampilan/login.php';</script>";
+            } else {
+                header("Location: popup.php");
             }
+        } else {
+                  header("Location: popup.php");
         }
-
-        // Login gagal
-        header("Location: popup.php");
         exit();
     }
 }
