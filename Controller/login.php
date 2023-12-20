@@ -15,36 +15,38 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         if ($result->num_rows > 0) {
             $row = $result->fetch_assoc();
-            if (password_verify($password, $row['password'])) {
+            if (password_verify($password, $row['password']) && $username = $row['username']) {
                 // Login berhasil
                 $_SESSION['role'] = $row['role'];
                 $role = $_SESSION['role'];
                 if ($role == 1) {
                     // Jika Customer
                     $_SESSION['log'] = 'logged';
-                    $_SESSION['id'] = $row['id_account'];
+                    $_SESSION['id_account'] = $row['id_account'];
                     $_SESSION['username'] = $row['username'];
-                    $_SESSION['nama'] = $row['name'];
-                    $id = $_SESSION['id'];
+                    $_SESSION['name'] = $row['name'];
+
                     header("Location: popup.php");
                 } else if ($role == 2) {
                     // Jika booster
                     $_SESSION['log'] = 'logged';
-                    $_SESSION['id'] = $row['id_account'];
+                    $_SESSION['id_account'] = $row['id_account'];
                     $_SESSION['username'] = $row['username'];
-                    $_SESSION['nama'] = $row['nama'];
+                    $_SESSION['name'] = $row['name'];
+                    header("Location: popup.php");
                 } else {
                     // Jika Admin
                     $_SESSION['log'] = 'logged';
-                    $_SESSION['id'] = $row['id_account'];
+                    $_SESSION['id_account'] = $row['id_account'];
                     $_SESSION['username'] = $row['username'];
-                    $_SESSION['nama'] = $row['nama'];
+                    $_SESSION['name'] = $row['name'];
+                    header("Location: popup.php");
                 }
             } else {
                 header("Location: popup.php");
             }
         } else {
-                  header("Location: popup.php");
+            header("Location: popup.php");
         }
         exit();
     }

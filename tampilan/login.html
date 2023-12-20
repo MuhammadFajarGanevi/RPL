@@ -37,27 +37,110 @@
             name="viewport"
             content="width=device-width, initial-scale=1.0"
           />
+
           <title>Tempest Boosting</title>
+          <link rel="stylesheet" href="../Doc/css/style.css" />
         </head>
+        <button
+          class="back-button"
+          onclick="goBack()"
+          style="
+            text-align: left;
+            cursor: pointer;
+            border-radius: 0%;
+            width: 50px;
+          "
+        >
+          Kembali
+        </button>
+
+        <script>
+          function goBack() {
+            window.history.back();
+          }
+        </script>
         <body>
           <div class="container" id="container">
+            <div class="form-container sign-up-container">
+              <form action="../Controller/register.php" method="POST">
+                <h1>Join Tempest</h1>
+                <input type="text" name="name" placeholder="Name" required />
+                <input
+                  type="text"
+                  name="username"
+                  placeholder="Username"
+                  required
+                />
+                <input type="email" name="email" placeholder="Email" required />
+                <input
+                  type="password"
+                  placeholder="Password"
+                  name="password"
+                  required
+                />
+                <input
+                  type="tel"
+                  name="notelp"
+                  placeholder="Nomor Telfon"
+                  required
+                />
+                <select name="role" required>
+                  <option value="customer">Customer</option>
+                  <option value="booster">booster</option>
+                </select>
+                <button class="submit" name="registrasi">Create Account</button>
+              </form>
+            </div>
 
             <div class="form-container sign-in-container">
               <form action="../Controller/login.php" method="post">
-                <h1>Login Your Account</h1>
-                <input type="text" placeholder="username / email" name="name" required/>
-                <input type="password" placeholder="Password" name="pass" required />
-                <a href="registrasi.html">Does not have account?</a>
+                <!-- Login -->
+                <h1>SIGN IN</h1>
+                <input
+                  type="text"
+                  placeholder="Username"
+                  name="name"
+                  required
+                />
+                <input
+                  type="password"
+                  placeholder="Password"
+                  name="pass"
+                  required
+                />
+                <a href="#">Forgot your password?</a>
                 <button class="submit" name="login">Sign In</button>
               </form>
             </div>
 
             <div class="overlay-container">
-              <img src="../assets/img/gallery/login.png" alt="" />
+              <div class="overlay">
+                <div class="overlay-panel overlay-left">
+                  <h1>Welcome Back!</h1>
+                  <p>
+                    To keep connected with us please login with your personal
+                    info
+                  </p>
+                  <button class="ghost" id="signIn">Sign In</button>
+                </div>
+                <div class="overlay-panel overlay-right">
+                  <h1>
+                    JOIN OUR COMMUNITY, OVER 100 PRO PLAYER AWAITING YOUR ORDER
+                  </h1>
+                  <p>
+                    Forget the boring grind, leave it to the professional on our
+                    site. Our pro player are ready to start your order any time
+                  </p>
+                  <button class="ghost" id="signUp">Sign Up</button>
+                </div>
+              </div>
             </div>
           </div>
         </body>
       </html>
     </header>
+
+    <!-- One Page, Animated-HeadLin -->
+    <script src="../Doc/js/slider.js"></script>
   </body>
 </html>

@@ -19,7 +19,7 @@ canvas,
 video {
     display: inline-block;
     *display: inline;
-    *zoom: 1;
+    *zoom: 1
 }
 
 audio:not([controls]) {

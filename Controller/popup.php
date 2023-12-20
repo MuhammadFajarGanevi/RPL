@@ -66,7 +66,8 @@
         $login_status = $_SESSION['log'];
         $username = $_SESSION['username'];
         $role = $_SESSION['role'];
-    
+        $id_account = $_SESSION['id_account'];
+
         echo '
         <div class="popup-overlay active">
             <div class="popup-content">
@@ -75,7 +76,7 @@
             </div>
         </div>
         ';
-    
+
         echo '
     <script>
         function closePopup() {
@@ -85,17 +86,15 @@
             if (role == 1) {
                 window.location.href = "../tampilan/user/indexUser.php";
             } else if (role == 2) {
-                window.location.href = "../tampilan/booster/index.php";
+                window.location.href = "../tampilan/booster/indexBooster.php";
             } else {
-                window.location.href = "../tampilan/admin/index.php";
+                window.location.href = "../tampilan/admin/indexAdmin.php";
             }
         }
     </script>
     ';
-        // Unset the session variables after displaying the popup
-        unset($_SESSION['log']);
-        unset($_SESSION['username']);
-        unset($_SESSION['role']);
+
+
     } else {
         // Display the login failed popup
         echo '
@@ -107,7 +106,7 @@
             </div>
         </div>
         ';
-    
+
         echo '
         <script>
             function closePopup() {
@@ -116,7 +115,7 @@
             }
         </script>
         ';
-        }
+    }
     ?>
 </body>
 
