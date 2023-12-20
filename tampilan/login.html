@@ -45,10 +45,20 @@
           class="back-button"
           onclick="goBack()"
           style="
-            text-align: left;
-            cursor: pointer;
-            border-radius: 0%;
-            width: 50px;
+            .back-button {
+              text-align: left;
+              cursor: pointer;
+              border: none;
+              padding: 10px 15px; /* Sesuaikan ukuran padding sesuai kebutuhan */
+              background-color: #ed0f0f; /* Warna latar belakang */
+              color: #000; /* Warna teks */
+              border-radius: 5px;
+              width: 50px;
+            }
+
+            .back-button:hover {
+              background-color: #ffffff; /* Warna latar belakang saat dihover */
+            }
           "
         >
           Kembali
