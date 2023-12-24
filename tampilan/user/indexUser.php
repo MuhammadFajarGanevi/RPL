@@ -8,7 +8,6 @@ $id_account = $_SESSION['id_account'];
 
 
 
-var_dump($_SESSION['id_account']);
 
 // GET id_account
 $sql = "SELECT id_account FROM account WHERE username = '$username'";
@@ -188,6 +187,10 @@ $_SESSION['id_account'] = $id_account;
             <div class="container2">
                 <div class="seksi">
                     <div class="item">
+                        <img src="../../assets/img/icon/pensil.png" alt="Enter Your Destination">
+                        <p>Enter Your Destination</p>
+                    </div>
+                    <div class="item">
                         <img src="../../assets/img/icon/card.png" alt="Pay Your Boosting">
                         <p>Pay Your Boosting</p>
                     </div>
@@ -198,10 +201,6 @@ $_SESSION['id_account'] = $id_account;
                     <div class="item">
                         <img src="../../assets/img/icon/like.png" alt="Confirmation Your Result">
                         <p>Confirmation Your Result</p>
-                    </div>
-                    <div class="item">
-                        <img src="../../assets/img/icon/pensil.png" alt="Enter Your Destination">
-                        <p>Enter Your Destination</p>
                     </div>
                 </div>
             </div>

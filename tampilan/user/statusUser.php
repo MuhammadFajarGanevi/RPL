@@ -17,6 +17,7 @@ $result = $stmt->get_result();
 // Menggunakan hasil
 // DEKLARASI
 
+
 $id_order = "";
 $idgame = "";
 $passgame = "";
@@ -35,8 +36,18 @@ while ($row = $result->fetch_assoc()) {
     $rank_akhir = $row['rank_akhir'];
     $harga = $row['harga'];
     $status = $row['status'];
+
+
+    $id_account1 = $id_account;
+    $query2 = "SELECT * FROM account WHERE id_account = '$id_account1'";
+    $hasil2 = mysqli_query($conn, $query2);
+
+
+    // Format harga dengan pemisah ribuan
+    $harga_format = number_format($harga, 0, ',', ',');
+
 }
-// Menutup statement
+
 $stmt->close();
 
 ?>
@@ -135,36 +146,141 @@ $stmt->close();
         </div>
         <section class="services-area">
             <div class="container">
-                <div class="row justify-content-center">
-                    <div class="col-lg-6">
-                        <!-- Hasil Input -->
-                        <div class="col-lg-6">
-                            <div class="result-wrapper">
-                                <h3 style="color : crimson;">Hasil Order:</h3>
-                                <?php
-                                if ($status == "unpaid" || $status == "pending" || $status == "process" || $status == "success") {
-                                    echo '<p>Status: <br>' . $status . '</p>';
-                                    echo '<p>ID Order: <br>' . $id_order . '</p>';
-                                    echo '<p>Rank Awal: <br>' . $rank_awal . '</p>';
-                                    echo '<p>Rank Tujuan: <br>' . $rank_akhir . '</p>';
-                                    echo '<p>Harga: <br>Rp. ' . $harga . '</p>';
-                                    echo '<p>Waktu Order: <br>' . $waktu . '</p>';
-                                } else {
-                                    echo '<p>Tidak ada proses.</p>';
-                                }
-                                ?>
+                <div class="tabble-wrapper">
+                    <?php
+                    if ($status == "unpaid" || $status == "pending" || $status == "process" || $status == "success") {
+                        ?>
+                        <div class="form-wrapper-input">
+                            <!-- Hasil Input -->
+                            <h3 style="color: crimson;">Hasil Order:</h3>
+                            <div class="gambar">
+                                <img src="../../assets\img\logo\logo3.png" alt="">
                             </div>
+                            <form class="formulir" action="order.php" method="post" onsubmit="return validateForm()">
+                                <div class="grup-kiri-kanan">
+                                    <div class="grup-kiri">
+                                        <div class="form-group">
+                                            <label>Status</label>
+                                            <input class="form-output" value="<?php echo $status; ?>" readonly>
+                                        </div>
+                                        <div class="form-group">
+                                            <!-- Rank Awal -->
+                                            <label for="rankAwal">Rank Awal</label>
+                                            <?php
+                                            $rankAwalValue = strtoupper(explode(' ', $rank_awal)[0]);
+                                            $rankAwalValueWithoutStar = str_replace('*', '', $rankAwalValue);
+                                            ?>
+                                            <input name="frank" id="rankAwal" class="form-output"
+                                                value="<?php echo $rankAwalValueWithoutStar; ?>" readonly>
+                                        </div>
+                                        <div class="form-group">
+                                            <?php
+                                            if (strtoupper(explode(' ', $rank_awal)[0]) == "MASTER" || strtoupper(explode(' ', $rank_awal)[0]) == "GM" || strtoupper(explode(' ', $rank_akhir)[0]) == "EPIC" || strtoupper(explode(' ', $rank_awal)[0]) == "LEGEND") {
+                                                ?>
+                                                <label for="romawiAwal">Romawi Awal</label>
+                                                <input name="fmawi" id="romawiAwal" class="form-output"
+                                                    value="<?php echo strtoupper(explode(' ', $rank_awal)[1]); ?>" readonly>
+                                                <!-- Opsi Romawi akan diisi secara dinamis oleh JavaScript -->
+                                            <?php } ?>
+                                        </div>
+                                        <div class="form-group">
+                                            <?php
+                                            if (strtoupper(explode(' ', $rank_awal)[0]) == "MASTER" || strtoupper(explode(' ', $rank_awal)[0]) == "GM" || strtoupper(explode(' ', $rank_akhir)[0]) == "EPIC" || strtoupper(explode(' ', $rank_awal)[0]) == "LEGEND") {
+                                                ?>
+                                                <label for="bintangAwal">Bintang Awal</label>
+                                                <?php
+                                                $bintangAwalValue = strtoupper(explode(' ', $rank_awal)[2]);
+                                                $bintangAwalValueWithoutStar = str_replace('*', '', $bintangAwalValue);
+                                                ?>
+                                                <input name="fstar" id="bintangAwal" class="form-output"
+                                                    value="<?php echo $bintangAwalValueWithoutStar; ?>" readonly>
+                                            <?php } else { ?>
+                                                <label for="bintangAwal">Bintang Awal</label>
+                                                <?php
+                                                $bintangAwalValue = strtoupper(explode(' ', $rank_awal)[1]);
+                                                $bintangAwalValueWithoutStar = str_replace('*', '', $bintangAwalValue);
+                                                ?>
+                                                <input name="fstar" id="bintangAwal" class="form-output"
+                                                    value="<?php echo $bintangAwalValueWithoutStar; ?>" readonly>
+                                            <?php } ?>
+                                        </div>
+                                    </div>
+
+
+
+                                    <div class="grup-kanan">
+                                        <div class="form-group">
+                                            <label>ID Order</label>
+                                            <input class="form-output" value="<?php echo $id_order; ?>" readonly>
+                                        </div>
+                                        <div class="form-group">
+                                            <!-- Rank Akhir -->
+                                            <label for="rankAkhir">Rank Akhir</label>
+                                            <input name="lrank" id="rankAkhir" class="form-output"
+                                                value="<?php echo strtoupper(explode(' ', $rank_akhir)[0]); ?>" readonly>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <?php
+                                            if (strtoupper(explode(' ', $rank_akhir)[0]) == "MASTER" || strtoupper(explode(' ', $rank_akhir)[0]) == "GM" || strtoupper(explode(' ', $rank_akhir)[0]) == "EPIC" || strtoupper(explode(' ', $rank_akhir)[0]) == "LEGEND") {
+                                                ?>
+                                                <label for="romawiAkhir">Romawi Tujuan</label>
+                                                <?php
+                                                $romawiValue = strtoupper(explode(' ', $rank_akhir)[1]);
+                                                $romawiValueWithoutStar = str_replace('*', '', $romawiValue);
+                                                ?>
+                                                <input name="lmawi" id="romawiAkhir" class="form-output"
+                                                    value="<?php echo $romawiValueWithoutStar; ?>" readonly>
+                                                <!-- Opsi Romawi akan diisi secara dinamis oleh JavaScript -->
+                                            <?php } ?>
+                                        </div>
+                                        <div class="form-group">
+                                            <?php
+                                            if (strtoupper(explode(' ', $rank_akhir)[0]) == "MASTER" || strtoupper(explode(' ', $rank_akhir)[0]) == "GM" || strtoupper(explode(' ', $rank_akhir)[0]) == "EPIC" || strtoupper(explode(' ', $rank_akhir)[0]) == "LEGEND") {
+                                                ?>
+                                                <label for="bintangakhir">Bintang Akhir</label>
+                                                <?php
+                                                $bintangValue = strtoupper(explode(' ', $rank_akhir)[2]);
+                                                $bintangValueWithoutStar = str_replace('*', '', $bintangValue);
+                                                ?>
+                                                <input name="lstar" id="bintangakhir" class="form-output"
+                                                    value="<?php echo $bintangValueWithoutStar; ?>" readonly>
+                                            <?php } else { ?>
+                                                <label for="bintangakhir">Bintang Akhir</label>
+                                                <?php
+                                                $bintangValue = strtoupper(explode(' ', $rank_akhir)[1]);
+                                                $bintangValueWithoutStar = str_replace('*', '', $bintangValue);
+                                                ?>
+                                                <input name="lstar" id="bintangakhir" class="form-output"
+                                                    value="<?php echo $bintangValueWithoutStar; ?>" readonly>
+                                            <?php } ?>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="form-group">
+                                    <label>Harga</label>
+                                    <input
+                                        style="background-color : white; color : black; font-weight : 500; text-Align: center;"
+                                        class="form-output" value="<?php echo "Rp. " . $harga_format; ?>" readonly>
+                                </div>
+                            </form>
                             <?php if ($status == "success") { ?>
                                 <a href="terima2User.php?id_order=<?php echo $id_order; ?>"> <button
-                                        class="btn btn-primary">Selesai</button></a>
+                                        class="accept">Selesai</button></a>
                             <?php } ?>
+                        </div>
+                    <?php } else { ?>
+                        <div class="table-order" style="width:500px; margin-right: 350px;">
 
+                            <?php echo "<p> Tidak ada Proses </p>"; ?>
 
                         </div>
-                    </div>
+                    <?php } ?>
                 </div>
             </div>
         </section>
+
     </main>
     <footer>
         <!-- Footer Bottom -->
@@ -172,8 +288,6 @@ $stmt->close();
             <div class="row d-flex align-items-center">
                 <img src="../../assets/img/icon/footer.png">
             </div>
-        </div>
-        </div>
         </div>
         <!-- Footer End-->
     </footer>

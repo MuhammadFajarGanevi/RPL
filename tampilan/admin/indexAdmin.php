@@ -107,66 +107,64 @@ $hasil = mysqli_query($conn, $query);
             </div>
         </div>
         <section class="services-area">
-            <div class="container">
-                <div class="row justify-content-center">
-                    <div class="col-lg-6">
-                        <!-- Hasil Input -->
-                        <div class="col-lg-6">
-                            <div class="result-wrapper">
-                                <!-- <div class="backk"> -->
-                                <table width="780" border="1" align="center">
-                                    <tr>
-                                        <th width="85" bgcolor="#3399ff">Name</th>
-                                        <th width="82" bgcolor="#3399ff">First Rank</th>
-                                        <th width="87" bgcolor="#3399ff">Last Rank</th>
-                                        <th width="31" bgcolor="#3399ff">Status</th>
-                                        <th width="2" bgcolor="#3399ff">Price</th>
-                                        <th width="85" bgcolor="#3399ff">Accept</th>
-                                    </tr>
-                                    <?php
-                                    while ($buff = mysqli_fetch_array($hasil)) {
-                                        if ($buff['status'] == "unpaid") {
 
-                                            $id_account1 = $buff['id_account'];
+            <div class="table-order">
+                <!-- <div class="backk"> -->
+                <table class="heading" width="1000" align="center">
+                    <tr class="heading">
+                        <th width="50">ID</th>
+                        <th width="60">Name</th>
+                        <th width="120">First Rank</th>
+                        <th width="120">Last Rank</th>
+                        <th width="80">Status</th>
+                        <th width="80">Price</th>
+                        <th width="40">Accept</th>
+                    </tr>
+                    <?php
+                    while ($buff = mysqli_fetch_array($hasil)) {
+                        if ($buff['status'] == "unpaid") {
 
-                                            $query2 = "SELECT * FROM account WHERE id_account = '$id_account1'";
-                                            $hasil2 = mysqli_query($conn, $query2);
-                                            ?>
-                                            <tr>
-                                                <?php while ($buff2 = mysqli_fetch_assoc($hasil2)) {
-                                                    $namaaku = $buff2['name']; ?>
-                                                    <td width="85" bgcolor="#fff">
-                                                        <?php echo $namaaku; ?>
-                                                    <?php }
-                                                ; ?>
-                                                </td>
-                                                <td width="82" bgcolor="#fff">
-                                                    <?php echo $buff['rank_awal']; ?>
-                                                </td>
-                                                <td width="87" bgcolor="#fff">
-                                                    <?php echo $buff['rank_akhir']; ?>
-                                                </td>
-                                                <td width="31" bgcolor="#fff">
-                                                    <?php echo $buff['status']; ?>
-                                                </td>
-                                                <td width="31" bgcolor="#fff">
-                                                    <?php echo $buff['harga']; ?>
-                                                </td>
-                                                <td width="30" bgcolor="#fff"><a style="color : black;"
-                                                        href="terima.php?id_order=<?php echo $buff['id_order']; ?>">Accept</a>
-                                                </td>
-                                            </tr>
-                                            <?php
-                                        }
-                                    }
-                                    ;
-                                    mysqli_close($conn);
-                                    ?>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                            $id_account1 = $buff['id_account'];
+
+                            $query2 = "SELECT * FROM account WHERE id_account = '$id_account1'";
+                            $hasil2 = mysqli_query($conn, $query2);
+                            ?>
+                            <tr>
+                                <?php while ($buff2 = mysqli_fetch_assoc($hasil2)) {
+                                    $namaaku = $buff2['name'];
+                                    $harga_format = number_format($buff['harga'], 0, ',', ','); ?>
+                                    <td>
+                                        <?php echo $buff['id_order']; ?>
+                                    </td>
+                                    <td>
+                                        <?php echo $namaaku; ?>
+                                    <?php }
+                                ; ?>
+                                </td>
+                                <td>
+                                    <?php echo strtoupper($buff['rank_awal']); ?>
+                                </td>
+                                <td>
+                                    <?php echo strtoupper($buff['rank_akhir']); ?>
+                                </td>
+                                <td>
+                                    <?php echo $buff['status']; ?>
+                                </td>
+                                <td>
+                                    <?php echo $harga_format; ?>
+                                </td>
+                                <td><a href="terima.php?id_order=<?php echo $buff['id_order']; ?>"><button type="button"
+                                            class="accept">Accept</button></a>
+                                </td>
+                            </tr>
+
+                            <?php
+                        }
+                    }
+                    ;
+                    mysqli_close($conn);
+                    ?>
+                </table>
             </div>
         </section>
 

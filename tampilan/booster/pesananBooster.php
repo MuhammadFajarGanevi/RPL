@@ -119,85 +119,73 @@ while ($buff3 = mysqli_fetch_array($hasil3)) {
             </div>
         </div>
         <section class="services-area">
-            <div class="container">
-                <div class="row justify-content-center">
-                    <div class="col-lg-6">
-                        <!-- Hasil Input -->
-                        <div class="col-lg-6">
-                            <div class="result-wrapper">
-                                <!-- <div class="backk"> -->
-                                <?php if ($waduh != 1) { ?>
-                                    <table width="780" border="1" align="center">
-                                        <tr>
-                                            <th width="85" bgcolor="#3399ff">Name</th>
-                                            <th width="82" bgcolor="#3399ff">First Rank</th>
-                                            <th width="87" bgcolor="#3399ff">Last Rank</th>
-                                            <th width="31" bgcolor="#3399ff">Status</th>
-                                            <th width="2" bgcolor="#3399ff">Price</th>
-                                            <th width="85" bgcolor="#3399ff">Hapus</th>
-                                        </tr>
+            <div class="table-order">
+                <!-- <div class="backk"> -->
+                <?php if ($waduh != 1) { ?>
+                    <table width="800" align="center">
+                        <tr class="heading">
+                            <th width="60">Name</th>
+                            <th width="120">First Rank</th>
+                            <th width="120">Last Rank</th>
+                            <th width="31">Status</th>
+                            <th width="2">Price</th>
+                            <th width="40">Accept</th>
+                        </tr>
 
-                                        <?php
+                        <?php
 
-                                        while ($buff = mysqli_fetch_array($hasil)) {
+                        while ($buff = mysqli_fetch_array($hasil)) {
 
-                                            $id_account1 = $buff['id_account'];
-                                            $rank_awal = $buff['rank_awal'];
-                                            $rank_akhir = $buff['rank_akhir'];
-                                            $status = $buff['status'];
-                                            $harga = $buff['harga'];
-                                            $id_order = $buff['id_order'];
+                            $id_account1 = $buff['id_account'];
+                            $rank_awal = $buff['rank_awal'];
+                            $rank_akhir = $buff['rank_akhir'];
+                            $status = $buff['status'];
+                            $harga = $buff['harga'];
+                            $id_order = $buff['id_order'];
 
-                                            $query2 = "SELECT * FROM account WHERE id_account = '$id_account1'";
-                                            $hasil2 = mysqli_query($conn, $query2);
+                            $query2 = "SELECT * FROM account WHERE id_account = '$id_account1'";
+                            $hasil2 = mysqli_query($conn, $query2);
 
 
-                                            // Mengambil nilai
-                                    
-                                            if ($status == "pending") {
-                                                ?>
-                                                <tr>
-                                                    <?php while ($buff2 = mysqli_fetch_assoc($hasil2)) {
-                                                        $namaaku = $buff2['name']; ?>
-                                                        <td width="85" bgcolor="#fff">
-                                                            <?php echo $namaaku; ?>
-                                                        <?php }
-                                                    ; ?>
-                                                    </td>
-                                                    <td width="82" bgcolor="#fff">
-                                                        <?php echo $rank_awal; ?>
-                                                    </td>
-                                                    <td width="87" bgcolor="#fff">
-                                                        <?php echo $rank_akhir; ?>
-                                                    </td>
-                                                    <td width="31" bgcolor="#fff">
-                                                        <?php echo $status; ?>
-                                                    </td>
-                                                    <td width="31" bgcolor="#fff">
-                                                        <?php echo $harga; ?>
-                                                    </td>
-                                                    <td width="30" bgcolor="#fff"><a style="color: black;"
-                                                            href="terima.php?id_order=<?php echo $id_order; ?>">Accept</a>
-
-                                                    </td>
-                                                </tr>
-                                                <?php
-                                            }
-
-
-                                        }
-                                        ;
-                                        mysqli_close($conn);
-                                        ?>
-                                    </table>
-                                <?php } else {
-                                    echo '<p>Tidak Bisa menerima boosting, karena anda sedang menjalankan booster / tidak ada pesanan.</p>';
-                                } ?>
-                                <!-- </div> -->
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                            // Mengambil nilai
+                    
+                            if ($status == "pending") {
+                                ?>
+                                <tr>
+                                    <?php while ($buff2 = mysqli_fetch_assoc($hasil2)) {
+                                        $namaaku = $buff2['name']; ?>
+                                        <td>
+                                            <?php echo $namaaku; ?>
+                                        <?php }
+                                    ; ?>
+                                    </td>
+                                    <td>
+                                        <?php echo strtoupper($buff['rank_awal']); ?>
+                                    </td>
+                                    <td>
+                                        <?php echo strtoupper($buff['rank_akhir']); ?>
+                                    </td>
+                                    <td>
+                                        <?php echo $buff['status']; ?>
+                                    </td>
+                                    <td>
+                                        <?php echo $buff['harga']; ?>
+                                    </td>
+                                    <td width="30"><a style="color: black;"
+                                            href="terima.php?id_order=<?php echo $id_order; ?>"><button type="button"
+                                                class="accept">Accept</button></a>
+                                    </td>
+                                </tr>
+                                <?php
+                            }
+                        }
+                        ;
+                        mysqli_close($conn);
+                        ?>
+                    </table>
+                <?php } else {
+                    echo '<p>Tidak Bisa menerima boosting, karena anda sedang menjalankan booster / tidak ada pesanan.</p>';
+                } ?>
             </div>
         </section>
     </main>

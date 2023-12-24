@@ -124,7 +124,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     } else if ($lmawitemp == 1) {
                         $lmawi = 5;
                     }
-
                 }
             } else {
                 $lmawi = 0;
@@ -140,8 +139,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
                 echo "<script>alert('Inputan Rank tidak valid'); window.history.back();</script>";
-
-
             } else {
 
                 // Deklarasi Variabel
@@ -308,7 +305,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                 $hato3 = $hato + $hato2 - ($totals * $harga[$rank[$i]]);
                                 $hato2 = 0;
                                 $hato = 0;
-
                             }
                         }
                     }
@@ -323,14 +319,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                 // Menyatukan rank awal 
                 if ($fmawi !== 0 && $lmawi !== 0) {
-                    $rank_awal = "rank : $frank,  Romawi : $fmawitemp, Bintang : $fstar";
-                    $rank_akhir = "rank : $lrank,  Romawi : $lmawitemp, Bintang : $lstar";
+                    $rank_awal = "$frank : $fmawitemp *$fstar";
+                    $rank_akhir = "$lrank : $lmawitemp *$lstar";
                 } else if ($fmawi !== 0 && $lmawi == 0) {
-                    $rank_awal = "rank : $frank,  Romawi : $fmawitemp, Bintang : $fstar";
-                    $rank_akhir = "rank : $lrank, Bintang : $lstar";
+                    $rank_awal = "$frank : $fmawitemp *$fstar";
+                    $rank_akhir = "$lrank *$lstar";
                 } else if ($fmawi == 0 && $lmawi == 0) {
-                    $rank_awal = "rank : $frank,  Bintang : $fstar";
-                    $rank_akhir = "rank : $lrank, Bintang : $lstar";
+                    $rank_awal = "$frank *$fstar";
+                    $rank_akhir = "$lrank *$lstar";
                 }
 
 
@@ -351,9 +347,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         });
                     </script>
                 ';
-
             }
-
         }
         // akhir dari else 
         if (isset($_POST['confirm'])) {
@@ -362,14 +356,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             // Menyatukan rank awal 
             if ($fmawi !== 0 && $lmawi !== 0) {
-                $rank_awal = "rank : $frank,  Romawi : $fmawitemp, Bintang : $fstar";
-                $rank_akhir = "rank : $lrank,  Romawi : $lmawitemp, Bintang : $lstar";
+                $rank_awal = "$frank $fmawitemp *$fstar";
+                $rank_akhir = "$lrank $lmawitemp *$lstar";
             } else if ($fmawi !== 0 && $lmawi == 0) {
-                $rank_awal = "rank : $frank,  Romawi : $fmawitemp, Bintang : $fstar";
-                $rank_akhir = "rank : $lrank, Bintang : $lstar";
+                $rank_awal = "$frank $fmawitemp *$fstar";
+                $rank_akhir = "$lrank *$lstar";
             } else if ($fmawi == 0 && $lmawi == 0) {
-                $rank_awal = "rank : $frank,  Bintang : $fstar";
-                $rank_akhir = "rank : $lrank, Bintang : $lstar";
+                $rank_awal = "$frank *$fstar";
+                $rank_akhir = "$lrank *$lstar";
             }
 
 
@@ -379,7 +373,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             // Menjalankan query
             if ($conn->query($sql) == TRUE) {
                 echo "<script>alert('Order berhasil disubmit!'); window.location.href='statusUser.php';</script>";
-
             } else {
                 echo "<script>alert('Error:  $conn->error')</script>";
             }
@@ -392,7 +385,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             echo "<script>alert('Mengcancel order'); window.location.href='orderUser.php';</script>";
         }
     }
-
 }
 ?>
 
@@ -537,7 +529,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         document.addEventListener("DOMContentLoaded", function () {
             // Logika untuk menentukan apakah pop-up harus ditampilkan
             <?php if ($frankPriority > $lrankPriority || $cekstatus == "queue"): ?>
-                var overlay = document.getElementById("overlay"); overlay.style.display = "flex";
+                var overlay = document.getElementById("overlay");
+                overlay.style.display = "flex";
             <?php endif; ?>
         });
     </script>

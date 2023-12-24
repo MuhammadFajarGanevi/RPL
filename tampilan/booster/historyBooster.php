@@ -70,8 +70,8 @@ $hasil = mysqli_query($conn, $query);
                             <nav>
                                 <ul id="navigation">
                                     <li><a href="indexBooster.php">Home</a></li>
-                                    <li><a href="pesananUser.php">Boosting</a></li>
-                                    <li><a href="statusUser.php">Status</a></li>
+                                    <li><a href="pesananBooster.php">Boosting</a></li>
+                                    <li><a href="statusBooster.php">Status</a></li>
                                     <li><a href="#">History</a></li>
                                 </ul>
                             </nav>
@@ -107,74 +107,65 @@ $hasil = mysqli_query($conn, $query);
             </div>
         </div>
         <section class="services-area">
-            <div class="container">
-                <div class="row justify-content-center">
-                    <div class="col-lg-6">
-                        <!-- Hasil Input -->
-                        <div class="col-lg-6">
-                            <div class="result-wrapper">
-                                <!-- <div class="backk"> -->
-                                <table width="780" border="1" align="center">
-                                    <tr>
-                                        <th width="82" bgcolor="#3399ff">ID Order</th>
-                                        <th width="85" bgcolor="#3399ff">Status</th>
-                                        <th width="87" bgcolor="#3399ff">Username Customer</th>
-                                        <th width="31" bgcolor="#3399ff">Rank Awal</th>
-                                        <th width="2" bgcolor="#3399ff">Rank Akhir</th>
-                                        <th width="85" bgcolor="#3399ff">Waktu Pesan</th>
-                                        <th width="85" bgcolor="#3399ff">Waktu Selesai</th>
-                                        <th width="85" bgcolor="#3399ff">Harga</th>
-                                    </tr>
-                                    <?php
-                                    while ($buff = mysqli_fetch_array($hasil)) {
-                                        $id_account1 = $buff['id_account'];
-                                        $id_booster1 = $buff['id_booster'];
+            <div class="table-account">
+                <table align="center" border="1">
+                    <tr class="heading">
+                        <th width="80">ID Order</th>
+                        <th width="95">Status</th>
+                        <th width="100">Username Customer</th>
+                        <th width="80">Rank Awal</th>
+                        <th width="80">Rank Akhir</th>
+                        <th width="85">Waktu Pesan</th>
+                        <th width="85">Waktu Selesai</th>
+                        <th width="85">Harga</th>
+                    </tr>
+                    <?php
+                    while ($buff = mysqli_fetch_array($hasil)) {
+                        $id_account1 = $buff['id_account'];
+                        $id_booster1 = $buff['id_booster'];
 
-                                        $query2 = "SELECT * FROM account WHERE id_account = '$id_account1'";
-                                        $hasil2 = mysqli_query($conn, $query2);
-                                        if ($buff['id_booster'] == $id_account) {
-                                            ?>
-                                            <tr>
-                                                <td width="85" bgcolor="#fff">
-                                                    <?php echo $buff['id_order']; ?>
-                                                </td>
-                                                <td width="31" bgcolor="#fff">
-                                                    <?php echo $buff['status']; ?>
-                                                </td>
-                                                <?php while ($buff2 = mysqli_fetch_assoc($hasil2)) {
-                                                    $namaaku = $buff2['username']; ?>
-                                                    <td width="85" bgcolor="#fff">
-                                                        <?php echo $namaaku; ?>
-                                                    <?php }
-                                                ; ?>
-                                                <td width="82" bgcolor="#fff">
-                                                    <?php echo $buff['rank_awal']; ?>
-                                                </td>
-                                                <td width="87" bgcolor="#fff">
-                                                    <?php echo $buff['rank_akhir']; ?>
-                                                </td>
-                                                <td width="31" bgcolor="#fff">
-                                                    <?php echo $buff['waktu_pesan']; ?>
-                                                </td>
-                                                <td width="31" bgcolor="#fff">
-                                                    <?php echo $buff['waktu_selesai']; ?>
-                                                </td>
-                                                <td width="31" bgcolor="#fff">
-                                                    <?php echo $buff['harga']; ?>
-                                                </td>
-                                            </tr>
-                                            <?php
-                                        }
-                                    }
-                                    ;
-                                    mysqli_close($conn);
-                                    ?>
-                                </table>
-                                <!-- </div> -->
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                        $query2 = "SELECT * FROM account WHERE id_account = '$id_account1'";
+                        $hasil2 = mysqli_query($conn, $query2);
+                        if ($buff['id_booster'] == $id_account) {
+                            $harga_format = number_format($buff['harga'], 0, ',', ',');
+                            ?>
+                            <tr>
+                                <td>
+                                    <?php echo $buff['id_order']; ?>
+                                </td>
+                                <td>
+                                    <?php echo $buff['status']; ?>
+                                </td>
+                                <?php while ($buff2 = mysqli_fetch_assoc($hasil2)) {
+                                    $namaaku = $buff2['username']; ?>
+                                    <td>
+                                        <?php echo $namaaku; ?>
+                                    <?php }
+                                ; ?>
+                                <td>
+                                    <?php echo $buff['rank_awal']; ?>
+                                </td>
+                                <td>
+                                    <?php echo $buff['rank_akhir']; ?>
+                                </td>
+                                <td>
+                                    <?php echo $buff['waktu_pesan']; ?>
+                                </td>
+                                <td>
+                                    <?php echo $buff['waktu_selesai']; ?>
+                                </td>
+                                <td>
+                                    <?php echo "Rp. " . $harga_format; ?>
+                                </td>
+                            </tr>
+                            <?php
+                        }
+                    }
+                    ;
+                    mysqli_close($conn);
+                    ?>
+                </table>
+                <!-- </div> -->
             </div>
         </section>
     </main>

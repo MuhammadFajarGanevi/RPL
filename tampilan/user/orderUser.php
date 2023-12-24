@@ -63,11 +63,13 @@ $role = $_SESSION['role'];
                         <!-- Main-menu -->
                         <div class="main-menu f-right d-none d-lg-block">
                             <nav>
+
                                 <ul id="navigation">
                                     <li><a href="indexUser.php">Home</a></li>
                                     <li><a href="#">Order</a></li>
                                     <li><a href="statusUser.php">Status</a></li>
-                                    <li><a href="historyUser.php">Review</a></li>
+                                    <li><a href="historyUser.php">History</a></li>
+
                                 </ul>
                             </nav>
                         </div>
@@ -102,18 +104,24 @@ $role = $_SESSION['role'];
         </div>
         <section class="services-area">
             <div class="container">
-                <div class="row justify-content-center">
-                    <div class="col-lg-6">
-                        <div class="form-wrapper">
+                <!-- <div class="row justify-content-center">
+                    <div class="col-lg-6"> -->
+                <div class="form-wrapper-input">
 
-                            <form action="order.php" method="post" onsubmit="return validateForm()">
-                                <!-- Rank Awal -->
+                    <div class="gambar">
+                        <img src="../../assets\img\logo\logo3.png" alt="">
+                    </div>
+                    <form class="formulir" action="order.php" method="post" onsubmit="return validateForm()">
+                        <div class="grup-kiri-kanan">
+
+                            <div class="grup-kiri">
                                 <div class="form-group">
-                                    <label for="info_game">Informasi Akun</label>
-                                    <input type="text" name="id_game" placeholder="ID Game" required>
-                                    <input type="text" name="pass_game" placeholder="Password Game" required>
+                                    <label for="id_game">ID Game</label>
+                                    <input class="inputIdPw" type="text" name="id_game" required>
                                 </div>
+
                                 <div class="form-group">
+                                    <!-- Rank Awal -->
                                     <label for="rankAwal">Rank Awal</label>
                                     <select name="frank" id="rankAwal" class="form-control"
                                         onchange="updateOptions('Awal')">
@@ -139,11 +147,18 @@ $role = $_SESSION['role'];
                                     <input type="number" name="fstar" id="bintangAwal" class="form-control" min="0">
 
                                 </div>
+                            </div>
 
+
+                            <div class="grup-kanan">
+                                <div class="form-group">
+                                    <label for="pass_game">Password Game</label>
+                                    <input class="inputIdPw" type="text" name="pass_game" required>
+                                </div>
                                 <!-- Rank Akhir -->
                                 <div class="form-group">
                                     <label for="rankAkhir">Rank Tujuan</label>
-                                    <select name="lrank" id="rankAkhir" class="form-control"
+                                    <select name="lrank" id="rankAkhir" class="form-control bootstrap-tai"
                                         onchange="updateOptions('Akhir')">
                                         <option value="" hidden> </option>
                                         <option value="master">Master</option>
@@ -166,14 +181,17 @@ $role = $_SESSION['role'];
                                     <label for="bintangAkhir">Bintang Tujuan</label>
                                     <input type="number" name="lstar" id="bintangAkhir" class="form-control" min="1">
                                 </div>
-
-                                <!-- Tombol Submit -->
-                                <button type="submit" name="order" class="btn btn-primary">Submit</button>
-                            </form>
-
-
+                            </div>
                         </div>
-                    </div>
+                        <!-- Tombol Submit -->
+                        <div class="tombol-submit">
+                            <button type="submit" name="order" class="btn-submit btn-primary">Submit</button>
+                        </div>
+                    </form>
+
+
+                    <!-- </div>
+                    </div> -->
                 </div>
             </div>
         </section>
@@ -279,16 +297,13 @@ $role = $_SESSION['role'];
                 if (selectedRank === 'mythic') {
                     bintangInput.min = "1";
                     bintangInput.max = "24";
-                }
-                else if (selectedRank === 'honor') {
+                } else if (selectedRank === 'honor') {
                     bintangInput.min = "25";
                     bintangInput.max = "49";
-                }
-                else if (selectedRank === 'glory') {
+                } else if (selectedRank === 'glory') {
                     bintangInput.min = "50";
                     bintangInput.max = "99";
-                }
-                else if (selectedRank === 'immortal') {
+                } else if (selectedRank === 'immortal') {
                     bintangInput.min = "100";
                     bintangInput.max = "300";
                 }

@@ -101,64 +101,53 @@ $hasil = mysqli_query($conn, $query);
             </div>
         </div>
         <section class="services-area">
-            <div class="container">
-                <div class="row justify-content-center">
-                    <div class="col-lg-6">
-                        <!-- Hasil Input -->
-                        <div class="col-lg-6">
-                            <div class="result-wrapper">
-                                <!-- <div class="backk"> -->
-                                <table width="780" border="1" align="center">
-                                    <tr>
-                                        <th width="85" bgcolor="#3399ff">ID</th>
-                                        <th width="82" bgcolor="#3399ff">Name</th>
-                                        <th width="87" bgcolor="#3399ff">Username</th>
-                                        <th width="31" bgcolor="#3399ff">Email</th>
-                                        <th width="30" bgcolor="#3399ff">Password</th>
-                                        <th width="31" bgcolor="#3399ff">Phone</th>
-                                        <th width="30" bgcolor="#3399ff">Role</th>
-                                        <th width="85" bgcolor="#3399ff">Edit</th>
-                                    </tr>
-                                    <?php
-                                    while ($buff = mysqli_fetch_array($hasil)) {
-                                        ?>
-                                        <tr>
-                                            <td width="85" bgcolor="#fff">
-                                                <?php echo $buff['id_account']; ?>
-                                            </td>
-                                            <td width="82" bgcolor="#fff">
-                                                <?php echo $buff['name']; ?>
-                                            </td>
-                                            <td width="87" bgcolor="#fff">
-                                                <?php echo $buff['username']; ?>
-                                            </td>
-                                            <td width="31" bgcolor="#fff">
-                                                <?php echo $buff['email']; ?>
-                                            </td>
-                                            <td width="31" bgcolor="#fff">
-                                                <?php echo $buff['password']; ?>
-                                            </td>
-                                            <td width="31" bgcolor="#fff">
-                                                <?php echo $buff['no_telp']; ?>
-                                            </td>
-                                            <td width="31" bgcolor="#fff">
-                                                <?php echo $buff['role']; ?>
-                                            </td>
-                                            <td width="30" bgcolor="#fff"><a style="color : black;"
-                                                    href="editAdmin.php?id_account=<?php echo $buff['id_account']; ?>">Edit</a>
-                                            </td>
-                                        </tr>
-                                        <?php
-                                    }
-                                    ;
-                                    mysqli_close($conn);
-                                    ?>
-                                </table>
-                                <!-- </div> -->
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            <div class="table-account">
+                <table align="center" border="1">
+                    <tr class="heading">
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Username</th>
+                        <th>Email</th>
+                        <!-- <th>Password</th> -->
+                        <th>Phone</th>
+                        <th>Role</th>
+                        <th>Edit</th>
+                    </tr>
+                    <?php
+                    while ($buff = mysqli_fetch_array($hasil)) {
+                        ?>
+                        <tr>
+                            <td width="70">
+                                <?php echo $buff['id_account']; ?>
+                            </td>
+                            <td width="150">
+                                <?php echo $buff['name']; ?>
+                            </td>
+                            <td width="120">
+                                <?php echo $buff['username']; ?>
+                            </td>
+                            <td width="190">
+                                <?php echo $buff['email']; ?>
+                            </td>
+                            <!-- <td width="31">
+                            </td> -->
+                            <td width="150">
+                                <?php echo $buff['no_telp']; ?>
+                            </td>
+                            <td width="90" class="centered">
+                                <?php echo $buff['role']; ?>
+                            </td>
+                            <td width="90" class="centered"><a
+                                    href="editAdmin.php?id_account=<?php echo $buff['id_account']; ?>"><button type="button"
+                                        class="accept">Edit</< /a>
+                            </td>
+                        </tr>
+                        <?php
+                    }
+                    ;
+                    mysqli_close($conn);
+                    ?>
+                </table>
             </div>
         </section>
     </main>
@@ -168,8 +157,6 @@ $hasil = mysqli_query($conn, $query);
             <div class="row d-flex align-items-center">
                 <img src="../../assets/img/icon/footer.png">
             </div>
-        </div>
-        </div>
         </div>
         <!-- Footer End-->
     </footer>
